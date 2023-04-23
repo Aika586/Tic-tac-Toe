@@ -25,12 +25,23 @@ const Gameboard = (() => {
       cellElement.addEventListener("click", handleclick);
     });
   };
+  const resetBoard = () => {
+    // Clear the board
+    board.fill("");
+    boardElemenet.innerHTML = "";
+
+    // Recreate the board
+    createBoard();
+    turnPlayers.textContent = "";
+    document.getElementById("display-winners").textContent = "";
+  };
 
   return {
     getBoard,
     createBoard,
     boardElemenet,
     handleclick,
+    resetBoard,
   };
 })();
 
@@ -50,6 +61,7 @@ const Player = (name, marker) => {
 //2.start the game with filling corresponding markes
 
 const gameController = (() => {
+  const displayWinner = document.getElementById("display-winners");
   const player1 = Player("Player1", "X");
   const player2 = Player("Plyer2", "O");
   let currentPlayer = player2;
@@ -90,7 +102,7 @@ const gameController = (() => {
       );
 
       // If the current player has achieved a winning combination, return true and exit the loop.
-      const displayWinner = document.getElementById("display-winners");
+
       if (isWinner) {
         const winner = `GAME OVER!!!${currentPlayer.getName()} - ${currentPlayer.getMarker()} wins!`;
         displayWinner.textContent = winner;
@@ -109,24 +121,9 @@ const gameController = (() => {
   };
 })();
 
-//     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-//       // We have a winner!
-//       alert(currentPlayer.getName() + " is the winner!");
-//       // Remove event listeners from remaining squares
-//       boardElemenet.querySelectorAll(".square").forEach((square) => {
-//         if (square !== cellElement) {
-//           square.removeEventListener("click", handleclick);
-//         }
-//       });
-//       return;
-//     }
-//   }
-//   // If all squares are filled but no winner is found, it's a tie
-//   if (!board.includes("")) {
-//     alert("It's a tie!");
-//   }
-// };
-
-//3.make a logic for winners
-
-//display winner
+const Reset = (() => {
+  const rstButton = document.getElementById("button");
+  rstButton.addEventListener("click", function reset() {
+    Gameboard.resetBoard();
+  });
+})();
