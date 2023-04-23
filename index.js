@@ -4,6 +4,18 @@ const Gameboard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
   const boardElemenet = document.getElementById("game-board");
   const getBoard = () => board;
+  const handleclick = (e) => {
+    if (document.getElementById("display-winners").textContent !== "") {
+      return;
+    }
+    e.target.textContent = gameController.switchPlayer();
+
+    turnPlayers.textContent = "It is now " + e.target.textContent + "'s go.";
+    e.target.removeEventListener("click", handleclick);
+
+    gameController.checkWinners();
+  };
+
   const createBoard = () => {
     board.forEach((_cell, index) => {
       const cellElement = document.createElement("div");
@@ -11,15 +23,6 @@ const Gameboard = (() => {
       cellElement.id = index;
       boardElemenet.appendChild(cellElement);
       cellElement.addEventListener("click", handleclick);
-      function handleclick(e) {
-        e.target.textContent = gameController.switchPlayer();
-
-        turnPlayers.textContent =
-          "It is now " + e.target.textContent + "'s go.";
-        e.target.removeEventListener("click", handleclick);
-        gameController.checkWinners();
-      }
-      boardElemenet.appendChild(cellElement);
     });
   };
 
@@ -27,6 +30,7 @@ const Gameboard = (() => {
     getBoard,
     createBoard,
     boardElemenet,
+    handleclick,
   };
 })();
 
@@ -86,9 +90,12 @@ const gameController = (() => {
       );
 
       // If the current player has achieved a winning combination, return true and exit the loop.
+      const displayWinner = document.getElementById("display-winners");
       if (isWinner) {
-        console.log(`${currentPlayer.getName()} wins!`);
-        return true;
+        const winner = `GAME OVER!!!${currentPlayer.getName()} - ${currentPlayer.getMarker()} wins!`;
+        displayWinner.textContent = winner;
+      } else if (board.every((cell) => cell.textContent !== "")) {
+        displayWinner.textContent = "CAME OVER:Tie!";
       }
     }
 
@@ -101,7 +108,6 @@ const gameController = (() => {
     checkWinners,
   };
 })();
-gameController.checkWinners();
 
 //     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
 //       // We have a winner!
