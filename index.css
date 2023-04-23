@@ -5,6 +5,28 @@
 }
 body {
   margin: 0;
+  background-color: beige;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  gap: 10px;
+}
+
+body,
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+header > p {
+  margin-top: 0px;
+  font-weight: bold;
+}
+header > h1 {
+  margin-bottom: 0px;
+  color: red;
+  font-size: 60px;
 }
 .game-board {
   display: grid;
@@ -19,9 +41,39 @@ body {
 
 .square {
   background-color: black;
-  color: white;
+  color: red;
   width: 100px;
   height: 100px;
   border: 1px solid white;
   /* Optional: add styles for each cell */
+}
+
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 56px;
+  font-weight: bold;
+}
+
+#turn-players,
+#display-winners,
+.reset-button {
+  display: flex;
+  justify-content: center;
+}
+
+#turn-players,
+#display-winners {
+  font-size: 28px;
+}
+
+#button {
+  font-size: 22px;
+  width: 150px;
+  padding: 10px;
+
+  color: white;
+  background-color: black;
+  border: none;
 }

@@ -62,8 +62,8 @@ const Player = (name, marker) => {
 
 const gameController = (() => {
   const displayWinner = document.getElementById("display-winners");
-  const player1 = Player("Player1", "X");
-  const player2 = Player("Plyer2", "O");
+  const player1 = Player("Player-X", "X");
+  const player2 = Player("Player-O", "O");
   let currentPlayer = player2;
   const switchPlayer = () => {
     if (currentPlayer === player2) {
@@ -104,7 +104,7 @@ const gameController = (() => {
       // If the current player has achieved a winning combination, return true and exit the loop.
 
       if (isWinner) {
-        const winner = `GAME OVER!!!${currentPlayer.getName()} - ${currentPlayer.getMarker()} wins!`;
+        const winner = `GAME OVER!!!${currentPlayer.getName()} wins!`;
         displayWinner.textContent = winner;
       } else if (board.every((cell) => cell.textContent !== "")) {
         displayWinner.textContent = "CAME OVER:Tie!";
